@@ -3,7 +3,7 @@ import util from 'util'
 import connectToDB from './db.js'
 
 
-export const db = await connectToDB('postgressql:///stock')
+export const db = await connectToDB('postgresql:///stock')
 
 export class User extends Model {
     [util.inspect.custom]() {
@@ -23,7 +23,7 @@ export class Stock extends Model {
     }
 }
 
-User.inti(
+User.init(
     {
         user_id: {
             type: DataTypes.INTEGER,
@@ -99,6 +99,6 @@ Stock.belongsTo(Stock_List, { foreignKey: 'stock_list_id' });
 
 await db.sync({ force: true })
 
-const testUser = await User.create({ email: 'test@email.com', user_name: 'jojo22', password: 'test'})
+const testUser1 = await User.create({ email: 'test@email.com', user_name: 'jojo22', password: 'test'})
 
-console.log(testUser)
+console.log(testUser1)
