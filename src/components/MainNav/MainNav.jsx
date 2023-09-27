@@ -1,12 +1,15 @@
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import "bootstrap-icons/font/bootstrap-icons.css"
 
-export default function MainNav ({header, rightLinks}){
+export default function MainNav ({logo, header, rightLinks}){
     return(
         <Navbar expand ="lg" className="bg-success navbar-dark">
             <Container fluid>
-                <Navbar.Brand href= '/'> {header}</Navbar.Brand>
+                <Navbar.Brand href= '/'> {logo}</Navbar.Brand>
+
+                <h1 className='text-white'> {header}</h1>
                 <Navbar.Toggle/>
                 <Navbar.Collapse>
                 <Nav className='mx-auto'>
@@ -17,6 +20,8 @@ export default function MainNav ({header, rightLinks}){
                     ))}
                 </Nav>
                 </Navbar.Collapse>
+
+
             </Container>
         </Navbar>
 

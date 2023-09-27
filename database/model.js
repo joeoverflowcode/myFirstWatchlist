@@ -11,7 +11,7 @@ export class User extends Model {
     }
 }
 
-export class Stock_List extends Model {
+export class StockList extends Model {
     [util.inspect.custom]() {
         return this.toJSON()
     }
@@ -25,12 +25,12 @@ export class Stock extends Model {
 
 User.init(
     {
-        user_id: {
+        userId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        user_name: {
+        username: {
             type: DataTypes.STRING,
             unique: true,
             allowNull: true,
@@ -51,38 +51,31 @@ User.init(
     },
 )
 
-Stock_List.init(
+StockList.init(
     {
-        stock_list_id: {
+        stockListId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             unique: true,
-        },
-        user_id: {
-            type: DataTypes.INTEGER,
-
-        },
+        }
     },
     {
-        modelName: 'stock_lists',
+        modelName: 'stockLists',
         sequelize: db,
     }
 )
 
 Stock.init(
     {
-        stock_id: {
+        stockId: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
             unique: true,
-            autoIncrement: true,
         },
-        stock_symbol: {
+        stockSymbol: {
             type: DataTypes.STRING,
-        },
-        stock_list_id: {
-            type: DataTypes.INTEGER,
         },
     },
     {
@@ -91,14 +84,21 @@ Stock.init(
     }
 )
 
+User.hasOne(StockList, { foreignKey: 'userId' })
+StockList.belongsTo(User, { foreignKey: 'userId' });
 
-Stock_List.belongsTo(User, { foreignKey: 'user_id' });
-
-Stock_List.hasMany(Stock, { foreignKey: 'stock_list_id' });
-Stock.belongsTo(Stock_List, { foreignKey: 'stock_list_id' });
+StockList.hasMany(Stock, { foreignKey: 'stockListId' });
+Stock.belongsTo(StockList, { foreignKey: 'stockListId' });
 
 await db.sync({ force: true })
 
-const testUser1 = await User.create({ email: 'test@email.com', user_name: 'jojo22', password: 'test'})
+// const testUser1 = await User.create({ username: 'jojo22', email: 'test@email.com', password: 'test'})
 
-console.log(testUser1)
+// console.log(testUser1)
+
+// const testStock = await Stock.create({ stockId: '1', stockSymbol: 'AAPL'})
+
+// console.log(testStock)   
+
+
+// await db.close()
