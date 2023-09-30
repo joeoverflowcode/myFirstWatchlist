@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import "bootstrap-icons/font/bootstrap-icons.css"
 
-export default function MainNav ({logo, header, rightLinks}){
+export default function MainNav ({logo, header, Links}){
     return(
         <Navbar expand ="lg" className="bg-success navbar-dark">
             <Container fluid>
@@ -13,7 +13,7 @@ export default function MainNav ({logo, header, rightLinks}){
                 <Navbar.Toggle/>
                 <Navbar.Collapse>
                 <Nav className='mx-auto'>
-                    {rightLinks.map(({url, text}, index) =>(
+                    {Links.map(({url, text}, index) =>(
                         <Nav.Link key={index} href={url}>
                             {text}
                         </Nav.Link>

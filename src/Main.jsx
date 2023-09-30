@@ -11,7 +11,9 @@ import {
 import App from './App.jsx';
 import ErrorPage from './pages/ErrorPage.jsx'
 import IndexPage from './pages/Index.jsx';
-
+import LandingChart from './components/charts/landingChart.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import UserProfilePage from './pages/UserProfilePage.jsx';
 import axios from 'axios'
 
 const router = createBrowserRouter(
@@ -23,7 +25,7 @@ const router = createBrowserRouter(
     errorElement={<ErrorPage />}
     >
 
-    {/* Homepage */}
+    {/* Index Page */}
       <Route
     index element={<IndexPage />}
     loader={ async () => {
@@ -31,11 +33,31 @@ const router = createBrowserRouter(
       console.log(res.data)
       return {stock: res.data}
     
-    }}
+    }
+  }
       />
 
+    {/* Landing Chart */}
+    {/* <Route
     
-    {/* Login Page */}
+    element={<LandingChart />}
+    loader={async () => {
+      const res = await axios.get('/stock')
+      console.log(res.data)
+      return {stock: res.data}
+    }}
+    /> */}
+
+
+    <Route 
+    path='login' 
+    element={<LoginPage />} 
+    />
+
+    <Route
+    path='me'
+    element={<UserProfilePage />}
+    />
 
 
     </Route>

@@ -31,7 +31,7 @@ app.get('/stock', async (req,res) => {
 app.post('/api/auth', async ( req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ where: { email: email}})
-
+    console.log(user,password,email)
     if(user && user.password === password) {
         req.session.userId = user.userId
         res.json({ success: true })

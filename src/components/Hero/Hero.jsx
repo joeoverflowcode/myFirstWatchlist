@@ -1,9 +1,9 @@
 import Column from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
 
-import LandingChart from '../charts/landingChart.jsx'
+
+// import LandingChart from '../charts/landingChart.jsx'
 
 
 export default function Hero({ timeStamp, watchList }) {
