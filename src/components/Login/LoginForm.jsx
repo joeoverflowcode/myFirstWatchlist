@@ -4,6 +4,10 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 
+import { useSelector, useDispatch } from "react-redux"
+import { checkAuthentication } from '../../reducers/authReducer'
+import { useEffect } from 'react'
+
 
 export default function LoginForm({ onLogin }) {
 
@@ -12,6 +16,13 @@ export default function LoginForm({ onLogin }) {
     console.log(emailValue)
     console.log(passwordValue)
     
+
+const dispatch = useDispatch()
+
+useEffect(() => {
+  dispatch(checkAuthentication)
+}, [])
+
     return (
 
 

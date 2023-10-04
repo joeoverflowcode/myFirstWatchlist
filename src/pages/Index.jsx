@@ -7,7 +7,15 @@ import UserProfilePage from "./UserProfilePage.jsx";
 import ErrorPage from "./ErrorPage.jsx";
 import NavLink from "react-bootstrap/esm/NavLink.js";
 
+
+
+
 export default function IndexPage() {
+
+// const loginSuccess = useSelector((state) => state.user.)
+// const logOut = useSelector((state) => state.)
+
+
 
 
     return (
@@ -16,7 +24,7 @@ export default function IndexPage() {
             logo = {<i className="bi bi-rocket-takeoff" style={{ fontSize: '5rem', color: 'white' }}></i>}
             header= " WatchList Navigation Bar 🚀"              
             Links={[
-              {url: '#', text:'Sign up'},
+              {url: '/signup', text:'Sign up'},
               {url: '/login', text:'Login'},
             ]}
       />
@@ -31,9 +39,9 @@ export default function IndexPage() {
 
 
 
-        <LandingChart
+        {/* <LandingChart
 
-                />
+                /> */}
 
 
 

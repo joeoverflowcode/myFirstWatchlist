@@ -74,7 +74,7 @@ Stock.init(
             primaryKey: true,
             unique: true,
         },
-        stockSymbol: {
+        ticker: {
             type: DataTypes.STRING,
         },
     },
@@ -90,7 +90,8 @@ StockList.belongsTo(User, { foreignKey: 'userId' });
 StockList.hasMany(Stock, { foreignKey: 'stockListId' });
 Stock.belongsTo(StockList, { foreignKey: 'stockListId' });
 
-await db.sync({ force: true })
+
+// await db.sync({ force: true })
 
 // const testUser1 = await User.create({ username: 'jojo22', email: 'test@email.com', password: 'test'})
 

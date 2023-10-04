@@ -24,7 +24,7 @@ for(let i = 0; i < 10; i++){
     const stockSymbols = ['AAPL', 'GOOG', 'MSFT', 'TSLA', 'ZOOM']; // Add more symbols as needed
 
     for (const symbol of stockSymbols) {
-      await stockList.createStock({ stockSymbol: symbol });
+      await stockList.createStock({ ticker: symbol });
     }
     console.log(`User: ${user.username} - StockList ID: ${stockList.stockListId}`);
     //^^^^
@@ -46,7 +46,7 @@ for (const user of usersInDB) {
     const stockList = await user.getStockList();
     const stocks = await stockList.getStocks();
     for (const stock of stocks) {
-      console.log(`- Stock Symbol: ${stock.stockSymbol}`);
+      console.log(`- Stock Symbol: ${stock.ticker}`);
     }
   }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^
