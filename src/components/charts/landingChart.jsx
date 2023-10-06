@@ -12,32 +12,26 @@ export default function LandingChart() {
     const [watchlist, setWatchlist] = useState([])
 
     const handleAddToWatchlist = async (ticker) => {
-        // if(!watchlist.includes(ticker)){
-        //     setWatchlist([...watchlist, ticker])
-        //     console.log(watchlist)
-        // }
 
         let {data} = await axios.post('/api/watchlist', {ticker})
         console.log(data)
         let {stocks} = data 
         setWatchlist(stocks)
-
-
     }
 
 
     const {stock} = useLoaderData()
     console.log(stock)
     console.log(watchlist)
-        const stockListItems = stock.map((stock) => (
+    const stockListItems = stock.map((stock) => (
 
-                        <tr key={stock.ticker}>
-                            <th scope='row'>{stock.ticker}</th>
-                            <td>{stock.price}</td>
-                            <td>{stock.change_amount}</td>
-                            <td>{stock.change_percentage}</td>
-                            <td> <Button onClick={(e)=>handleAddToWatchlist(stock.ticker)}> add </Button></td>
-                        </tr>
+            <tr key={stock.ticker}>
+                <th scope='row'>{stock.ticker}</th>
+                <td>{stock.price}</td>
+                <td>{stock.change_amount}</td>
+                <td>{stock.change_percentage}</td>
+                <td> <Button onClick={(e)=>handleAddToWatchlist(stock.ticker)}> add </Button></td>
+            </tr>
    
     ))
 

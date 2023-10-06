@@ -5,27 +5,35 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import { useNavigate } from 'react-router-dom'
 
 
-
-export default function SignUpForm() {
+export default function SignUpForm(onSignUp) {
+  const navigate = useNavigate()
   
   const[formData, setFormData] = useState({
     username: '',
     email: '',
     password: ''
   })
-
-  // const data = {
-  //   username: e.target.name.value,
-  //   email: e.target.email.value,
-  //   password: e.target.email.value
-  // }
-
-  const handleSubmit = async (event) => {
+  
+  
+    const handleSubmit = async (event) => {
     event.preventDefault()
 
     const response = await axios.post('/api/signup', formData)
+    console.log(response)
+    
+    setFormData({
+      username: '',
+      email: '',
+      password: ''
+    })
+    console.log(response.data)
+
+    if(response.data.success){
+      navigate('/me')
+    }
   }
 
 
@@ -36,7 +44,9 @@ export default function SignUpForm() {
       
       <Form 
       className="form-row col-md-4 mb-3" 
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+
+      >
       
         <Form.Group controlId='username'>
           <Form.Label > Create a Username: </Form.Label>

@@ -62,11 +62,44 @@ const router = createBrowserRouter(
     element={<UserProfilePage />}
     loader={ async () => {
       const res = await axios.get('/stock')
+      const stocks = await axios.get('/api/watchlist')
       console.log(res.data)
-      return {stock: res.data}
+      return {stock: res.data, myStock: stocks.data}
+
+
     }}
     
     />
+    {/* User Profile page  */}
+    {/* <Route
+    path='me'
+    element={<UserProfilePage />}
+    loader={ async () => {
+      
+      console.log(res.data)
+      return {stock: res.data}
+      
+    }}    
+    /> */}
+
+{/* <Route
+  path="me"
+  element={<UserProfilePage />}
+  loader={async () => {
+    const [stockResponse, watchlistResponse] = await Promise.all([
+      axios.get('/stock'),
+      axios.get('/api/watchlist')
+    ]);
+
+    const stockData = stockResponse.data;
+    const watchlistData = watchlistResponse.data;
+
+    console.log('Stock Data:', stockData);
+    console.log('Watchlist Data:', watchlistData);
+
+    return { stock: stockData, watchlist: watchlistData };
+  }}
+/> */}
 
     </Route>
   )

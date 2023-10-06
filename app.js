@@ -27,13 +27,32 @@ app.get('/stock', async (req,res) => {
 })
 
 
-app.post('/api/signup'), async (req, res) => {
-    const {username, email, password } = req.body
+app.post('/api/signup', async (req, res) => {
     //create new user
-    //create new stocklist for user created
-    res.status(200).json({message:'user created'})
+    const {username, email, password } = req.body
+        let user = await User.create({
+            username: username,
+            email: email,
+            password: password
+            })
+            
+            //create new stocklist for user created
+        await user.createStockList()   
+
+    console.log(user)
+
+    if( user && email && password ){
+        req.session.userId = user.userId
+        res.status(200).json({message:'user created!', success: true})
+    } else {
+        res.json({ success: false })
+    }
     
-}
+
+    
+    
+    }
+)
 
 
 
@@ -42,7 +61,7 @@ app.post('/api/auth', async ( req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ where: { email: email}})
     console.log(user,password,email)
-    if(user && user.password === password) {
+    if(user && user.password === password && !req.session.userId) {
         req.session.userId = user.userId
         res.json({ success: true })
     } else {
@@ -94,15 +113,9 @@ app.get('/api/watchlist', async ( req, res) => {
             }
         )
         let {stocks} = watchlist 
-        let stockData = await Promise.all(
-            stocks.map( async (stock) => {
-                let res = await axios.get(`https://api.polygon.io/v2/aggs/ticker/${stock.ticker}/prev?adjusted=true&apiKey=demo`)
-                return res.data
-            }
-            )
-        )
-console.log(stockData)
-        res.json(stockData)
+        
+
+        res.json(stocks)
 
     }
 })

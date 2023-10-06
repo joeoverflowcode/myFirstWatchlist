@@ -3,32 +3,59 @@
 //Loop over stock
       //get API data for each ticker 
 
-import { useState, useEffect } from 'react'
+
 import {useLoaderData} from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
-import axios from 'axios'
+import Table from 'react-bootstrap/Table'
+
 
 
 
 
 export default function Watchlist() {
+const {myStock} = useLoaderData()
+console.log(myStock)
 
-  // const [watchlist, setWatchlist] = useState([])
+// const watchlistRows = watchlist.map((stock)=> (
+//   <tr key={stock.ticker}>
+//   <th scope='row'>{stock.ticker}</th>
+//   <td>{stock.price}</td>
+//   <td>{stock.change_amount}</td>
+//   <td>{stock.change_percentage}</td>
+// </tr>
 
-  // useEffect(()=>
-  // const getWatchlist = 
-  // )
-  async function getWatchList (){ 
-    const response = await axios.get('/api/watchlist')
-    const watchList = response.data
-  }
+// ))
+
+
+  // async function getWatchList (user){ 
+  //   const response = await axios.get('/api/watchlist')
+  //   const watchList = response.data
+  // }
 
   return (
     <>
 
     <h1>Watchlist Chart</h1>
     <Container>
+    <h4>landing chart</h4>
+                <Table className='table table-striped'>
+                    <thead>
+                        <tr>
 
+                            <th scope="col">Stock Symbol</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">$ Change</th>
+                            <th scope="col">% Change</th>
+                            <th scope="col"> Add to Watchlist </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        
+                    {/* {watchlistRows} */}
+
+                    </tbody>
+                </Table>
     </Container>
     </>
   )
