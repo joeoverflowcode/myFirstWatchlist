@@ -1,0 +1,17 @@
+
+.image-container {
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.image {
+    background-image: url(../../../assets/highfive.jpg);
+background-size: contain;
+background-repeat: no-repeat;
+    width: 600px;
+    height: 400px;
+    position:relative;
+
+}

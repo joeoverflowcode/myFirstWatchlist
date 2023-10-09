@@ -7,55 +7,89 @@
 import {useLoaderData} from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
-
-
+import { useState } from 'react'
+import { Button } from 'react-bootstrap'
+import axios from 'axios'
 
 
 
 export default function Watchlist() {
-const {myStock} = useLoaderData()
-console.log(myStock)
 
-// const watchlistRows = watchlist.map((stock)=> (
-//   <tr key={stock.ticker}>
-//   <th scope='row'>{stock.ticker}</th>
-//   <td>{stock.price}</td>
-//   <td>{stock.change_amount}</td>
-//   <td>{stock.change_percentage}</td>
-// </tr>
-
-// ))
-
-
-  // async function getWatchList (user){ 
-  //   const response = await axios.get('/api/watchlist')
-  //   const watchList = response.data
+  const {myStock} = useLoaderData()
+  // console.log(myStock)
+  
+  const [watchlist, setWatchlist] = useState(myStock)
+  // const updateWatchlist = (stock) => {
+  //   setWatchlist(...watchlist,stock)
   // }
+  
+  
+
+  const deleteStock = async (ticker) =>{
+
+    let {data} = await axios.post('/api/deleteStock', {ticker})
+    console.log(data)
+
+
+  //   const newWatchlist = [...watchlist]
+  //   console.log(ticker)
+  //   console.log(watchlist)
+    
+  //   const index = newWatchlist.findIndex((stock) => stock.ticker ===ticker)
+  //   console.log(index)
+  // newWatchlist.splice(index,1)
+
+  setWatchlist(data.stocks)
+  }
+
+  // const deleteStock = (ticker) => {
+  //   const newWatchlist = watchlist.filter((stock) => stock.ticker !== ticker);
+  //   setWatchlist(newWatchlist);
+  // };
+
+
+const myList = watchlist.map((stock) => (
+  <tr key={stock.ticker}> 
+  <th scope='row'>{stock.ticker}</th>
+<th scope='row'> {stock.price}</th>
+<th scope='row'>{stock.dollarChange}</th>
+<th scope='row'>{stock.percentChange}</th>
+
+
+
+  <td><Button onClick={(e) => {
+    e.preventDefault()
+    deleteStock(stock.ticker)}}>Delete</Button></td>
+  </tr>
+
+
+))
+
 
   return (
     <>
 
-    <h1>Watchlist Chart</h1>
     <Container>
-    <h4>landing chart</h4>
-                <Table className='table table-striped'>
-                    <thead>
-                        <tr>
+      <h1>Watchlist Chart</h1>
 
-                            <th scope="col">Stock Symbol</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">$ Change</th>
-                            <th scope="col">% Change</th>
-                            <th scope="col"> Add to Watchlist </th>
-                        </tr>
+          <Table className='table table-striped'>
+             <thead>
+                  <tr>
+
+                    <th scope="col">Stock Symbol</th>
+                    <th scope="col">Price</th>
+                    <th scope='col'> $ Change</th>
+                    <th scope='col'> % Change</th>
+                    <th scope='col'>Delete from Watchlist</th>
+                    </tr>
                     </thead>
 
                     <tbody>
                         
-                    {/* {watchlistRows} */}
+                    {myList}
 
-                    </tbody>
-                </Table>
+              </tbody>
+        </Table>
     </Container>
     </>
   )

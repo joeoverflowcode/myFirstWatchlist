@@ -3,8 +3,14 @@ import Hero from '../components/Hero/Hero.jsx'
 import LogoutButton from '../components/Login/LogoutButton.jsx'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
-import Watchlist from "../components/charts/watchList.jsx"
+// import Watchlist from "../components/charts/watchList.jsx"
 import LandingChart from "../components/charts/landingChart.jsx"
+import { Container } from "react-bootstrap"
+// import teenTrade from '../../assets/fatherSon.jpg'
+import './style/UserProfilePage.css'
+import Button from "react-bootstrap/Button"
+
+
 
 export default function UserProfilePage() {
 
@@ -18,6 +24,11 @@ export default function UserProfilePage() {
       }
     }
 
+
+
+    const handleGoToWatchlist = () => {
+      navigate('/watchlist')
+    }
   return (
     <>
     <MainNav
@@ -25,25 +36,33 @@ export default function UserProfilePage() {
         header= "👤 UserProfile 👤"
         Links={[
           {url: '/', text:'Home'},
+          {url:'watchlist', text:'myWatchlist'},
+          { url:'/', text:'Logout',
+          onclick: handleLogout
+          }
         ]}
-
 
     />
 
 
     <Hero
-      timeStamp="Watchlist"
-      watchList="Leo in vitae turpis massa sed elementum tempus. Tristique senectus et netus et malesuada fames ac. Odio facilisis mauris sit amet massa vitae tortor. Felis imperdiet proin fermentum leo vel orci porta non. Sed faucibus turpis in eu mi bibendum neque egestas congue. Aenean pharetra magna ac placerat vestibulum lectus."
-    />
+      timeStamp="Welcome Username!"
+      watchList="Below is a list of stock with the highest trading volume for the previous day. This list has no merit on the company's performance, it is just a sample list of different stock to help you get started."
+
+  />
+
+      <div className="image-container">
+          <div className="image"></div>
+      </div>
+
 
     <LandingChart />
-    
-      <Watchlist />
+    <Button onClick={handleGoToWatchlist}> Go to my Watchlist</Button>
 
-      
         <LogoutButton
         onLogout={handleLogout}
         />
+
 
 
   </>

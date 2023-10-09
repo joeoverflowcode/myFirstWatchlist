@@ -19,7 +19,8 @@ import SignUpPage from './pages/SignUpPage.jsx';
 
 import store from './store.js'
 import { Provider } from 'react-redux';
-
+// import Watchlist from './components/charts/watchList.jsx';
+import WatchlistPage from './pages/WatchlistPage.jsx'
 
 
 const router = createBrowserRouter(
@@ -62,14 +63,29 @@ const router = createBrowserRouter(
     element={<UserProfilePage />}
     loader={ async () => {
       const res = await axios.get('/stock')
-      const stocks = await axios.get('/api/watchlist')
+      // const stocks = await axios.get('/api/watchlist')
       console.log(res.data)
-      return {stock: res.data, myStock: stocks.data}
-
-
+      return {
+        stock: res.data, 
+        // myStock: stocks.data
+      }
     }}
     
     />
+
+
+<Route
+path='watchlist'
+element={<WatchlistPage/>}
+loader={ async () => {
+  const stocks = await axios.get('/api/watchlist')
+  console.log(stocks.data)
+  return { myStock: stocks.data}
+}}
+/>
+
+
+
     {/* User Profile page  */}
     {/* <Route
     path='me'

@@ -108,7 +108,7 @@ app.get('/api/watchlist', async ( req, res) => {
                 },
                 include: {
                     model: Stock,
-                    attributes: ['ticker']
+                    attributes: ['ticker', 'price', 'dollarChange', 'percentChange']
                 }
             }
         )
@@ -127,14 +127,18 @@ app.post('/api/watchlist', async ( req, res ) => {
     if(!userId) {
         res.status(401).json({ error: 'Unauthorized'})
     } else {
-        const { ticker } = req.body
+        const { 
+            ticker, 
+            price, 
+            change_amount: dollarChange, 
+            change_percentage:percentChange } = req.body
 
         const stocklist = await StockList.findOne(
             {where:
             {userId:userId},
             include: {
                 model: Stock,
-                attributes: ['ticker']
+                attributes: ['ticker','stockId', 'price', 'dollarChange', 'percentChange']
             }
         })
         let {stocks} = stocklist
@@ -143,9 +147,13 @@ app.post('/api/watchlist', async ( req, res ) => {
             res.status(401)
             return
         }
-
+        console.log(percentChange)
         await stocklist.createStock({ 
-            ticker:ticker
+            ticker:ticker,
+            price,
+            dollarChange,
+            percentChange,
+
         })
         const watchlist = await StockList.findOne(
             {
@@ -154,13 +162,48 @@ app.post('/api/watchlist', async ( req, res ) => {
                 },
                 include: {
                     model: Stock,
-                    attributes: ['ticker']
+                    attributes: ['ticker','stockId', 'price', 'dollarChange', 'percentChange']
                 }
             }
         )
         res.json(watchlist)
     }
 })
+
+app.post('/api/deleteStock', async ( req, res ) => {
+    const { userId } = req.session 
+    if(!userId) {
+        res.status(401).json({ error: 'Unauthorized'})
+    } else {
+        const {ticker } = req.body
+
+        const stocklist = await StockList.findOne(
+            {where:
+            {userId:userId}
+    })
+        await Stock.destroy({ where: 
+        { 
+            stockListId: stocklist.stockListId,
+            ticker: ticker 
+        } })
+
+        const watchlist = await StockList.findOne(
+            {
+                where: {
+                    userId: userId
+                },
+                include: {
+                    model: Stock,
+                    attributes: ['ticker','stockId', 'price', 'dollarChange', 'percentChange']
+                }
+            }
+        )
+        res.json(watchlist)
+
+
+}
+})
+
 
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));

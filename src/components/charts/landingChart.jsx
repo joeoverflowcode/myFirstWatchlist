@@ -4,16 +4,17 @@ import { useLoaderData } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
 
 
 export default function LandingChart() {
-
+    const navigate = useNavigate()
+    
     const [watchlist, setWatchlist] = useState([])
 
-    const handleAddToWatchlist = async (ticker) => {
+    const handleAddToWatchlist = async (stock) => {
 
-        let {data} = await axios.post('/api/watchlist', {ticker})
+        let {data} = await axios.post('/api/watchlist', stock)
         console.log(data)
         let {stocks} = data 
         setWatchlist(stocks)
@@ -30,15 +31,24 @@ export default function LandingChart() {
                 <td>{stock.price}</td>
                 <td>{stock.change_amount}</td>
                 <td>{stock.change_percentage}</td>
-                <td> <Button onClick={(e)=>handleAddToWatchlist(stock.ticker)}> add </Button></td>
+                <td> <Button onClick={(e)=>handleAddToWatchlist(stock)}> add </Button></td>
             </tr>
    
     ))
 
-    
+    const handleGoToWatchlist = () => {
+        navigate('watchlist')
+      }
+
     return (
-        <Container>
-            <h4>landing chart</h4>
+        <Container fluid className='text-center bg-light'>
+            <div>
+                <h4>Sample Stock List</h4>
+
+                    <p> Take a look through each listed stock. The 'Stock Symbol' represents the company that the Symbol represents. You will see the resective price, price change for the day, and then the price change represented as a percentage change.</p>
+                    <p>When you click on the respective 'add' button for each stock, they will be added to your own personal stock list. The stock will be saved to your account and you can login and monitor how each stock is doing over time.</p>
+                    <p>At the bottom you will find a button that takes you to your Watchlist.</p>
+            </div>
                 <Table className='table table-striped'>
                     <thead>
                         <tr>
@@ -57,12 +67,8 @@ export default function LandingChart() {
 
                     </tbody>
                 </Table>
+<Button onClick={handleGoToWatchlist}> Go to my Watchlist</Button>
 
-
-
-
-
-                
         </Container>
     )
 }

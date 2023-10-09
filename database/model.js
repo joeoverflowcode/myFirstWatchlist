@@ -58,7 +58,8 @@ StockList.init(
             autoIncrement: true,
             primaryKey: true,
             unique: true,
-        }
+        },
+
     },
     {
         modelName: 'stockLists',
@@ -77,6 +78,21 @@ Stock.init(
         ticker: {
             type: DataTypes.STRING,
         },
+        price: {
+            type:DataTypes.FLOAT,
+            allowNull:false,
+        },
+        dollarChange: {
+            type: DataTypes.FLOAT,
+            allowNull:false,
+        },
+        percentChange: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+
+
+
     },
     {
         modelName: 'stock',
