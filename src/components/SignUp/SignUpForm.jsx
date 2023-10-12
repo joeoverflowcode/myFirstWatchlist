@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 import { useNavigate } from 'react-router-dom'
-
+import InputGroup from 'react-bootstrap/InputGroup'
 
 export default function SignUpForm(onSignUp) {
   const navigate = useNavigate()
@@ -39,17 +39,23 @@ export default function SignUpForm(onSignUp) {
 
     return (
 
-<Container>
+  <div className='turtle'>
+
+      <Container>
     <h4>Sign Up Form</h4>
-      
+
       <Form 
       className="form-row col-md-4 mb-3" 
       onSubmit={handleSubmit}
-
+      
       >
       
         <Form.Group controlId='username'>
           <Form.Label > Create a Username: </Form.Label>
+          <InputGroup>
+          <InputGroup.Text>
+                <i className="bi bi-person"></i>
+              </InputGroup.Text>
           <Form.Control 
             type="text" 
             placeholder="Username" 
@@ -58,10 +64,16 @@ export default function SignUpForm(onSignUp) {
             required
             />
 
+            </InputGroup>
         </Form.Group>
 
         <Form.Group controlId='email'>
           <Form.Label> Provide a valid email:</Form.Label>
+          
+          <InputGroup>
+          <InputGroup.Text>
+                <i className="bi bi-envelope"></i>
+              </InputGroup.Text>
           <Form.Control 
             type="text" 
             placeholder='email' 
@@ -70,11 +82,16 @@ export default function SignUpForm(onSignUp) {
             required>
                 
           </Form.Control>
+              </InputGroup>
         </Form.Group>
 
         <Form.Group 
         controlId='password'>
         <Form.Label> Create a Password:</Form.Label>
+        <InputGroup>
+        <InputGroup.Text>
+                <i className="bi bi-key"></i>
+              </InputGroup.Text>
         <Form.Control 
         type="text" 
         placeholder='password' 
@@ -83,18 +100,21 @@ export default function SignUpForm(onSignUp) {
         required>
 
         </Form.Control>
+          </InputGroup>
         </Form.Group>
 
         <br></br>
 
       <Button 
-        variant="primary" 
-        type="submit"> Submit Form 
+      className='custom-button'
+      variant="primary" 
+      type="submit"> Submit Form 
       </Button>
     
       </Form>
 
         </Container>
+      </div>
 
 
     )

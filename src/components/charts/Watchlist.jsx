@@ -1,7 +1,3 @@
-//Grab tickers from db
-//await Promise.all()
-//Loop over stock
-      //get API data for each ticker 
 
 
 import {useLoaderData} from 'react-router-dom'
@@ -10,18 +6,16 @@ import Table from 'react-bootstrap/Table'
 import { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
-
+import './style/Watchlist.css'
 
 
 export default function Watchlist() {
 
   const {myStock} = useLoaderData()
-  // console.log(myStock)
+
   
   const [watchlist, setWatchlist] = useState(myStock)
-  // const updateWatchlist = (stock) => {
-  //   setWatchlist(...watchlist,stock)
-  // }
+
   
   
 
@@ -31,21 +25,9 @@ export default function Watchlist() {
     console.log(data)
 
 
-  //   const newWatchlist = [...watchlist]
-  //   console.log(ticker)
-  //   console.log(watchlist)
-    
-  //   const index = newWatchlist.findIndex((stock) => stock.ticker ===ticker)
-  //   console.log(index)
-  // newWatchlist.splice(index,1)
-
   setWatchlist(data.stocks)
   }
 
-  // const deleteStock = (ticker) => {
-  //   const newWatchlist = watchlist.filter((stock) => stock.ticker !== ticker);
-  //   setWatchlist(newWatchlist);
-  // };
 
 
 const myList = watchlist.map((stock) => (
@@ -69,7 +51,7 @@ const myList = watchlist.map((stock) => (
   return (
     <>
 
-    <Container>
+    <Container className='chart'>
       <h1>Watchlist Chart</h1>
 
           <Table className='table table-striped'>

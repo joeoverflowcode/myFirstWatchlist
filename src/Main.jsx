@@ -11,7 +11,7 @@ import {
 import App from './App.jsx';
 import ErrorPage from './pages/ErrorPage.jsx'
 import IndexPage from './pages/Index.jsx';
-import LandingChart from './components/charts/landingChart.jsx';
+
 import LoginPage from './pages/LoginPage.jsx';
 import UserProfilePage from './pages/UserProfilePage.jsx';
 import axios from 'axios'
@@ -19,7 +19,7 @@ import SignUpPage from './pages/SignUpPage.jsx';
 
 import store from './store.js'
 import { Provider } from 'react-redux';
-// import Watchlist from './components/charts/watchList.jsx';
+
 import WatchlistPage from './pages/WatchlistPage.jsx'
 
 
@@ -39,9 +39,7 @@ const router = createBrowserRouter(
       const res = await axios.get('/stock')
       console.log(res.data)
       return {stock: res.data}
-    
-    }
-  }
+    }}
       />
 
     {/* Login Page  */}
@@ -63,14 +61,14 @@ const router = createBrowserRouter(
     element={<UserProfilePage />}
     loader={ async () => {
       const res = await axios.get('/stock')
-      // const stocks = await axios.get('/api/watchlist')
+      const {data} = await axios.get('/userstock')
+      console.log(data) 
       console.log(res.data)
       return {
         stock: res.data, 
-        // myStock: stocks.data
+        userStocks: data
       }
     }}
-    
     />
 
 
@@ -83,39 +81,6 @@ loader={ async () => {
   return { myStock: stocks.data}
 }}
 />
-
-
-
-    {/* User Profile page  */}
-    {/* <Route
-    path='me'
-    element={<UserProfilePage />}
-    loader={ async () => {
-      
-      console.log(res.data)
-      return {stock: res.data}
-      
-    }}    
-    /> */}
-
-{/* <Route
-  path="me"
-  element={<UserProfilePage />}
-  loader={async () => {
-    const [stockResponse, watchlistResponse] = await Promise.all([
-      axios.get('/stock'),
-      axios.get('/api/watchlist')
-    ]);
-
-    const stockData = stockResponse.data;
-    const watchlistData = watchlistResponse.data;
-
-    console.log('Stock Data:', stockData);
-    console.log('Watchlist Data:', watchlistData);
-
-    return { stock: stockData, watchlist: watchlistData };
-  }}
-/> */}
 
     </Route>
   )

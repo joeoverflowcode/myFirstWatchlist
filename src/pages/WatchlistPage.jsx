@@ -1,14 +1,20 @@
-import MainNav from "../components/MainNav/MainNav.jsx"
 import Hero from '../components/Hero/Hero.jsx'
-import LogoutButton from '../components/Login/LogoutButton.jsx'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import Watchlist from "../components/charts/watchList.jsx"
-
+import { Button } from "react-bootstrap"
+import {Container} from "react-bootstrap"
+import upArrow from '../../assets/upArrow.jpg'
 export default function UserProfilePage() {
 
-    const navigate = useNavigate()
+  
+  const navigate = useNavigate()
     
+  const handleAddMoreStock = () => {
+    navigate('/me')
+  } 
+
+
     const handleLogout = async (event) => {
       event.preventDefault()
       const res = await axios.post('/api/logout')
@@ -18,31 +24,26 @@ export default function UserProfilePage() {
     }
 
   return (
+
     <>
-    <MainNav
-        logo = {<i className="bi bi-person-circle" style={{ fontSize: '5rem', color: 'white' }}></i>}
-        header= "Watchlist 📈"
-        Links={[
-          {url: '/', text:'Home'},
-        ]}
-
-
-    />
+  <Container fluid className='text-center bg-light'>
 
 
     <Hero
-      timeStamp="Watchlist"
-      watchList="Leo in vitae turpis massa sed elementum tempus. Tristique senectus et netus et malesuada fames ac. Odio facilisis mauris sit amet massa vitae tortor. Felis imperdiet proin fermentum leo vel orci porta non. Sed faucibus turpis in eu mi bibendum neque egestas congue. Aenean pharetra magna ac placerat vestibulum lectus."
-    />
+      timeStamp="Keep Track Of Your Watchlist"
+      watchList="The price of stock changes every business day that the stock market is open. Check back in using your login credentials to add, remove and monitor your watchlist."
+      />
+    
+    
+    <img className='upArrow' src={upArrow} />
+    
+    <Watchlist />
 
-      <Watchlist />
-
+    <Button onClick={handleAddMoreStock}>Add More Stock</Button>
       
-        <LogoutButton
-        onLogout={handleLogout}
-        />
 
 
+        </Container>
   </>
   ) 
 }

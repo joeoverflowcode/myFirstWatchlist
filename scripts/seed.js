@@ -20,8 +20,6 @@ for(let i = 0; i < 10; i++){
     usersToCreate.push(user)
     let stockList = await user.createStockList()
     
-    //SWITCH THIS BACK IF TEST DOESN'T WORK this added to try to have more stock>>
-    // const stockSymbols = ['AAPL', 'GOOG', 'MSFT', 'TSLA', 'ZOOM']
 
     const sampleStock = [
       {
@@ -57,10 +55,6 @@ for(let i = 0; i < 10; i++){
     ];
 
 
-    // for (const symbol of stockSymbols) {
-    //   await stockList.createStock({ ticker: symbol });
-    // }
-
     for (const stock of sampleStock){
       await stockList.createStock({
         ticker: stock.symbol,
@@ -69,23 +63,14 @@ for(let i = 0; i < 10; i++){
         percentChange: stock.percentageChange
       })
     }
-    // console.log(`User: ${user.username} - StockList ID: ${stockList.stockListId}`);
 
     console.log(`User: ${user.username} - StockList ID: ${stockList.stockListId}`)
-    //^^^^
-    //Lukas code:
-    // await stockList.createStock({ stockSymbol: "AAPL" })
 
-    // console.log(`User: ${user.username} - StockList ID: ${stockList.stockListId}`)
-    //I want to find a way to print the username and see the stock that are in their stockList
 }
 
 const usersInDB = await Promise.all(usersToCreate)
 console.log(usersInDB)
-// console.log(stockList)
-// console.log(stockData[4])
 
-//This added to view more stock in seed
 
 for (const user of usersInDB) {
     console.log(`User: ${user.username}`);
@@ -98,7 +83,7 @@ for (const user of usersInDB) {
       console.log(`  - Percent Change: ${stock.percentChange}%`);
     }
   }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 
 await db.close()

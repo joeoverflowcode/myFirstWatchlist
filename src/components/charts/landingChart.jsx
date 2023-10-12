@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import TableRow from '../TableRow/TableRow'
 
 
 export default function LandingChart() {
@@ -23,18 +24,18 @@ export default function LandingChart() {
 
     const {stock} = useLoaderData()
     console.log(stock)
-    console.log(watchlist)
-    const stockListItems = stock.map((stock) => (
-
-            <tr key={stock.ticker}>
-                <th scope='row'>{stock.ticker}</th>
-                <td>{stock.price}</td>
-                <td>{stock.change_amount}</td>
-                <td>{stock.change_percentage}</td>
-                <td> <Button onClick={(e)=>handleAddToWatchlist(stock)}> add </Button></td>
-            </tr>
    
-    ))
+    const stockListItems = stock.map((stock, index) => {
+      
+          return(
+<TableRow 
+    key={index}
+    stock={stock}
+    handleAdd={handleAddToWatchlist}
+/>
+               ) 
+   
+    })
 
     const handleGoToWatchlist = () => {
         navigate('watchlist')
@@ -67,7 +68,7 @@ export default function LandingChart() {
 
                     </tbody>
                 </Table>
-<Button onClick={handleGoToWatchlist}> Go to my Watchlist</Button>
+
 
         </Container>
     )

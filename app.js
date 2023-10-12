@@ -26,6 +26,23 @@ app.get('/stock', async (req,res) => {
     res.status(200).send(data.most_actively_traded)
 })
 
+app.get('/userstock', async (req, res) => {
+    const watchlist = await StockList.findOne({where:{userId:req.session.userId}, include:{model:Stock, attributes:['ticker']}})
+    res.json(watchlist.stocks)
+
+})
+
+
+app.get('/api/auth/status', (req, res) => {
+    if ( req.session.userId ) {
+        res.json({loggedIn: true }) 
+    } else {
+        res.json({loggedIn: false})
+    }
+
+})
+
+
 
 app.post('/api/signup', async (req, res) => {
     //create new user
